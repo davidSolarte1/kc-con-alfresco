@@ -1,0 +1,217 @@
+:root {
+    --primary-color: #392bf8;
+    --secondary-color: #941b1b;
+    --text-muted: #888;
+    --error-color: crimson;
+    --enterprise-color: #0c79bf;
+    --font-bold: 'Open Sans Bold', Arial, sans-serif;
+    --font-normal: 'Open Sans', Arial, sans-serif;
+    --font-size-large: 1.8rem;
+    --font-size-medium: 1.2rem;
+    --font-size-small: 0.85rem;
+    --input-width: 316px;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../css/fonts/opensans.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans Bold';
+    font-style: normal;
+    font-weight: 600;
+    src: url(../../css/fonts/opensansbold.woff) format('woff');
+}
+
+body {
+    background-image: url("http://picsum.photos/1920/1080");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin: 0;
+    font-family: var(--font-normal);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor principal del login */
+div.login {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    height: 600px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sección izquierda - Formulario */
+.login-form-section {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+/* Sección derecha - Imagen */
+.login-image-section {
+    flex: 1;
+    background-image: url('https://i.imgur.com/fcro2xF.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+/* Efecto de gradiente en la imagen */
+.login-image-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(148, 27, 27, 0.1), rgba(224, 123, 26, 0.1));
+}
+
+.product-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.product-community {
+    font-size: 1rem;
+    color: black;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos del formulario */
+.login form {
+    width: 100%;
+    max-width: 350px;
+    padding: 0;
+}
+
+.login .form-fields.login {
+    padding-left: 0;
+}
+
+/* Estilos de los inputs */
+.login input[type="text"],
+.login input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: var(--font-size-medium);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(148, 27, 27, 0.25);
+}
+
+/* Estilos del botón */
+.form-fields.login .form-field > span.yui-button {
+    width: 100%;
+}
+
+.form-fields.login .form-field > span.yui-button > .first-child {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    border-radius: 10px;
+    width: 100%;
+}
+
+.form-fields.login .form-field > span.yui-button > .first-child > button {
+    width: 100%;
+    padding: 12px 24px;
+    color: #fff;
+    font-family: var(--font-bold);
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-fields.login .form-field > span.yui-button > .first-child > button:hover {
+    background-color: #e07b1a;
+    transform: scale(1.05);
+}
+
+/* Mensaje de error */
+.login .error {
+    width: 100%;
+    padding-top: 1rem;
+    font-size: var(--font-size-small);
+    color: var(--error-color);
+    text-align: center;
+}
+
+/* Footer */
+.login-copy {
+    color: #fff;
+    font-size: var(--font-size-small);
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    div.login {
+        flex-direction: column;
+        height: auto;
+        width: 90%;
+        margin: 20px auto;
+    }
+
+    .login-image-section {
+        height: 200px;
+        order: -1;
+    }
+
+    .login-form-section {
+        padding: 20px;
+    }
+
+    .product-name {
+        font-size: 2rem;
+    }
+}
+
+/* Enterprise styles */
+.ENTERPRISE .form-fields.login .form-field > span.yui-button {
+    border-color: var(--enterprise-color);
+}
+
+.ENTERPRISE .form-fields.login .form-field > span.yui-button > .first-child {
+    background-color: var(--enterprise-color);
+    border-color: var(--enterprise-color);
+}
+
+.ENTERPRISE .login .product-name {
+    color: var(--enterprise-color);
+}
