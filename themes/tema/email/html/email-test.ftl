@@ -21,7 +21,7 @@ Por medio del presente mensaje de correo electrónico se le informa que la <stro
 </p>
 
 <table style="border-collapse: collapse;">
-    <tr><td><strong>Nombre:</strong></td><td></td></tr>
+    <tr><td><strong>Nombre:</strong></td><td><p>${user.firstName!}</p></td></tr>
     <tr><td><strong>Correo:</strong></td><td></td></tr>
     <tr><td><strong>Contraseña:</strong></td><td></td></tr>
     <tr><td><strong>Motivo:</strong></td><td>Creación del correo institucional david.solarte@sednarino.gov.co</td></tr>
