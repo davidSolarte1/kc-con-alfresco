@@ -1,4 +1,5 @@
 <!-- Importa los archivos de estilo y JavaScript necesarios -->
+<link rel="icon" href="${url.resourcesPath}/favicon.ico" type="image/x-icon" />
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
