@@ -1,201 +1,151 @@
-<!-- Importa los archivos de estilo y JavaScript necesarios -->
-<link rel="icon" href="${url.resourcesPath}/favicon.ico" type="image/x-icon" />
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    height: 100vh;
-}
-
-.main-container {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    flex-direction: row;
-}
-
-.login-section {
-    width: 100%;
-    max-width: 400px;
-    background-color: rgba(255, 255, 255, 0.95);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.logo-container {
-    margin-bottom: 2rem;
-    width: 80%;
-    max-width: 200px;
-}
-
-.logo-container img {
-    width: 100%;
-    height: auto;
-}
-
-.product-name {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #941b1b;
-    text-align: center;
-    margin-bottom: 10px;
-    line-height: 1.2;
-}
-
-.product-community {
-    font-size: 0.9rem;
-    color: black;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.login-form {
-    width: 100%;
-    max-width: 300px;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-input.form-control {
-    font-size: 0.9rem;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-
-input.form-control:focus {
-    border-color: #941b1b;
-    box-shadow: 0 0 0 0.2rem rgba(148, 27, 27, 0.15);
-}
-
-input.form-control::placeholder {
-    font-size: 0.8rem;
-    color: #6c757d;
-}
-
-.custom-btn {
-    background-color: #941b1b !important;
-    border-color: #941b1b !important;
-    font-size: 1rem !important;
-    font-weight: bold;
-    padding: 0.8rem !important;
-    border-radius: 8px !important;
-    transition: all 0.3s ease;
-    width: 100%;
-    color: #ffffff;
-}
-
-.custom-btn:hover {
-    background-color: #e07b1a !important;
-    transform: scale(1.02);
-}
-
-.footer-text {
-    position: absolute;
-    bottom: 1rem;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 0.8rem;
-    color: #666;
-    padding: 0 1rem;
-}
-
-.alert-danger {
-    width: 100%;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-}
-
-.image-section {
-    flex: 1;
-    background-image: url('https://i.imgur.com/E324xV0.png'); /* Ruta de la imagen para el cuadro azul */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
+<#import "template.ftl" as layout>
 
 
 
-/* Ajustes para pantallas más pequeñas */
-@media (max-width: 768px) {
-    .main-container {
-        flex-direction: column;
-    }
 
-    .login-section {
-        width: 100%;
-        max-width: none;
-        height: auto;
-        padding-bottom: 3rem; /* Espacio extra para el footer en pantallas pequeñas */
-    }
 
-    .image-section {
-        width: 100%;
-        height: 50vh;
-    }
 
-    .product-name {
-        font-size: 1.8rem;
-    }
-}
-</style>
 
-<div class="main-container">
-    <div class="login-section">
-        <div class="logo-container">
-            <img src="https://i.imgur.com/fcro2xF.png" alt="Logo Prueba" class="img-fluid">
-        </div>
+<@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
+  
 
-        <div class="product-name">Gobernación de Nariño</div>
-        <div class="product-community">Secretaría de Educación Departamental</div>
+    <#if section = "header">
+        ${msg("loginAccountTitle")}
+    <#elseif section = "form">
+    
+            <div class="" style="text-align:center">
+                <img class="logo-container"/>
+                   
+                </div>
 
-        <!-- Mensaje de error de autenticación -->
-        <#if error??>
-        <div class="alert alert-danger" role="alert">
-            Error en la autenticación. Inténtalo de nuevo.
-        </div>
+             
+
+
+
+        <div id="kc-form">
+          <div id="kc-form-wrapper">
+            <#if realm.password>
+                <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
+                    <#if !usernameHidden??>
+                        <div class="${properties.kcFormGroupClass!}">
+                            <label for="username" class="${properties.kcLabelClass!}"><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
+
+                            <input class="form-control" tabindex="2" id="username" class="${properties.kcInputClass!}" name="username" value="${(login.username!'')}"  type="text" autofocus autocomplete="username"
+                                   aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
+                            />
+
+                            <#if messagesPerField.existsError('username','password')>
+                                <span id="input-error" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
+                                        ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
+                                </span>
+                            </#if>
+
+                        </div>
+                    </#if>
+
+                    <div class="${properties.kcFormGroupClass!}">
+                        <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
+
+                        <div class="${properties.kcInputGroup!} input-group mb-3" style="display:flex; flex-wrap:nowrap; background: none;">
+
+                            <input class="form-control" tabindex="3" id="password" class="${properties.kcInputClass!}" name="password" type="password" autocomplete="current-password"
+                                   aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
+                            />
+                            <button class="btn btn-secondary"  type="button" aria-label="${msg("showPassword")}"
+                                    aria-controls="password" data-password-toggle tabindex="4"
+                                    data-icon-show="${properties.kcFormPasswordVisibilityIconShow!}" data-icon-hide="${properties.kcFormPasswordVisibilityIconHide!}"
+                                    data-label-show="${msg('showPassword')}" data-label-hide="${msg('hidePassword')}">
+                                <i class="${properties.kcFormPasswordVisibilityIconShow!}" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <#if usernameHidden?? && messagesPerField.existsError('username','password')>
+                            <span id="input-error" class="${properties.kcInputErrorMessageClass!}" aria-live="polite">
+                                    ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
+                            </span>
+                        </#if>
+
+                    </div>
+
+                    <div class="${properties.kcFormGroupClass!} ${properties.kcFormSettingClass!}">
+                        <div id="kc-form-options">
+                            <#if realm.rememberMe && !usernameHidden??>
+                                <div class="checkbox">
+                                    <label>
+                                        <#if login.rememberMe??>
+                                            <input tabindex="5" id="rememberMe" name="rememberMe" type="checkbox" checked> ${msg("rememberMe")}
+                                        <#else>
+                                            <input tabindex="5" id="rememberMe" name="rememberMe" type="checkbox"> ${msg("rememberMe")}
+                                        </#if>
+                                    </label>
+                                </div>
+                            </#if>
+                            </div>
+                            <div class="${properties.kcFormOptionsWrapperClass!}">
+                                <#if realm.resetPasswordAllowed>
+                                    <span><a tabindex="6" href="${url.loginResetCredentialsUrl}">${msg("doForgotPassword")}</a></span>
+                                </#if>
+                            </div>
+
+                      </div>
+
+                      <div id="kc-form-buttons" class="${properties.kcFormGroupClass!}">
+                          <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
+                          <input tabindex="7" class="btn btn-lg custom-btn ${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" name="login" id="kc-login" type="submit" value="${msg("doLogIn")}"/>
+                      </div>
+                </form>
+            </#if>
+            </div>
+       
+       
+       
+            </div>
+       </div>
+       
+       
+      
+        <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
+    <#elseif section = "info" >
+        <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
+            <div id="kc-registration-container">
+                <div id="kc-registration">
+                    <span>${msg("noAccount")} <a tabindex="8"
+                                                 href="${url.registrationUrl}">${msg("doRegister")}</a></span>
+                </div>
+            </div>
         </#if>
+    <#elseif section = "socialProviders" >
+        <#if realm.password && social.providers??>
+            <div id="kc-social-providers" class="${properties.kcFormSocialAccountSectionClass!}">
+                <hr/>
+                <h2>${msg("identity-provider-login-label")}</h2>
 
-        <!-- Formulario de inicio de sesión -->
-        <form id="kc-form-login" class="login-form" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
-            <div class="form-group">
-                <input type="text" id="username" name="username" value="${username!}" class="form-control" placeholder="Nombre de usuario" required autofocus>
+                <ul class="${properties.kcFormSocialAccountListClass!} <#if social.providers?size gt 3>${properties.kcFormSocialAccountListGridClass!}</#if>">
+                    <#list social.providers as p>
+                        <li>
+                            <a id="social-${p.alias}" class="${properties.kcFormSocialAccountListButtonClass!} <#if social.providers?size gt 3>${properties.kcFormSocialAccountGridItem!}</#if>"
+                                    type="button" href="${p.loginUrl}">
+                                <#if p.iconClasses?has_content>
+                                    <i class="${properties.kcCommonLogoIdP!} ${p.iconClasses!}" aria-hidden="true"></i>
+                                    <span class="${properties.kcFormSocialAccountNameClass!} kc-social-icon-text" style="font-size: small;">${p.displayName!} - Correo Institucional</span>
+                                <#else>
+                                    <span class="${properties.kcFormSocialAccountNameClass!}" style="font-size: small;">${p.displayName!} - Correo Institucional</span>
+                                </#if>
+                            </a>
+                        </li>
+                    </#list>
+                </ul>
             </div>
-            <div class="form-group">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña" required>
-            </div>
-            <div class="form-group">
-                <button type="submit" id="kc-login" class="btn btn-lg custom-btn">Iniciar Sesión</button>
-            </div>
-        </form>
+        </#if>
+    </#if>
 
-        <!-- Footer -->
+
+      
+
+</@layout.registrationLayout>
+
+  <!-- Footer -->
         <div class="footer-text">
-            © 2024 Gobernación de Nariño<br>
-            Secretaría de Educación Departamental
+            © 2025 - <a href="https://sed.narino.gov.co" >Secretaría de Educación Departamental de Nariño </a>
         </div>
-    </div>
 
-    <!-- Sección de la imagen -->
-    <div class="image-section"></div>
-</div>
-
-<!-- Dependencias de JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
