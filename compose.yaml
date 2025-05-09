@@ -137,6 +137,8 @@ services:
         volumes:
           - ./config/alfresco-realm.json:/opt/keycloak/data/import/alfresco-realm.json
           - ./themes:/opt/keycloak/themes/           
+          - ./extensions:/opt/keycloak/providers/
+          - keycloak-data:/opt/keycloak/data
 
         healthcheck:
             test:
@@ -158,3 +160,5 @@ services:
             - ./config/nginx.conf:/etc/nginx/nginx.conf
         ports:
             - 8080:8080
+volumes:
+    keycloak-data:
