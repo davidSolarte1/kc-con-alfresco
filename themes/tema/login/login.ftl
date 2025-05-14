@@ -13,11 +13,7 @@
         ${msg("loginAccountTitle")}
     <#elseif section = "form">
     
-            <div class="" style="text-align:center">
-                <img class="logo-container"/>
-                   
-                </div>
-
+          
              
 
 

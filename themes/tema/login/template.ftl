@@ -212,6 +212,7 @@ input.form-control::placeholder {
 </head>
 
 <body class="${properties.kcBodyClass!}">
+
 <div class="${properties.kcLoginClass!} main-container" style="display: flex; align-items: center; background-color:rgba(255, 255, 255, 0.8) ">
    <#-- <div id="kc-header" class="${properties.kcHeaderClass!}">
         <div id="kc-header-wrapper"
@@ -219,9 +220,14 @@ input.form-control::placeholder {
     </div> -->
 
   
-
+    
     <div class="${properties.kcFormCardClass!}" style="background: none;border: none;box-shadow: none;min-width: 36em;">
         <header class="${properties.kcFormHeaderClass!}">
+        <div style="text-align:center; padding-top: 20px;">
+    <a href="http://172.28.100.44:8080/share">
+        <img class="logo-container" alt="Logo Gobernación de Nariño">
+    </a>
+</div>
             <#if realm.internationalizationEnabled  && locale.supported?size gt 1>
                 <div class="${properties.kcLocaleMainClass!}" id="kc-locale">
                     <div id="kc-locale-wrapper" class="${properties.kcLocaleWrapperClass!}">

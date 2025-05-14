@@ -6,10 +6,6 @@
         ${msg("registerTitle")}
     <#elseif section = "form">
 
- <div class="" style="text-align:center">
-                <img class="logo-container"/>
-                   
-                </div>
 
         <form id="kc-register-form" class="${properties.kcFormClass!}" action="${url.registrationAction}" method="post">
 
