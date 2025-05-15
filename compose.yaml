@@ -1,6 +1,12 @@
 services:
     alfresco:
-        image: alfresco/alfresco-content-repository-community:${ALFRESCO_CE_TAG}
+        build:
+            context: ./alfresco
+            args:
+                ALFRESCO_CE_TAG: ${ALFRESCO_CE_TAG}
+                DB: postgres
+                SOLR_COMMS: secret 
+        mem_limit: 19000m
         depends_on:
             - alfresco-identity-service
             - postgres
@@ -56,7 +62,13 @@ services:
             JAVA_OPTS: " -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=80"
 
     share:
-        image: alfresco/alfresco-share:${SHARE_TAG}
+        build:
+            context: ./share
+            args:
+                SHARE_TAG: ${SHARE_TAG}
+                SERVER_NAME: ${SERVER_NAME}
+            dockerfile: dockerfile
+        mem_limit: 3904m 
         environment:
             REPO_HOST: "alfresco"
             REPO_PORT: "8080"

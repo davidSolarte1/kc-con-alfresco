@@ -1,0 +1,10 @@
+<bean id="SiteService_security" class="org.alfresco.repo.security.permissions.impl.acegi.MethodSecurityInterceptor">
+   <property name="authenticationManager" ref="authenticationManager"/>
+   <property name="accessDecisionManager" ref="accessDecisionManager"/>
+   <property name="afterInvocationManager" ref="afterInvocationManager"/>
+   <property name="objectDefinitionSource">
+      <value>
+         org.alfresco.service.cmr.site.SiteService.createSite=ACL_METHOD.ROLE_ADMINISTRATOR
+      </value>
+   </property>
+</bean>
